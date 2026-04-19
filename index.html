@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta http-equiv="Content-Language" content="ar">
+  <meta name="description" content="الصفحة الشخصية للأستاذة بوغرارة حنان - أستاذة التاريخ والجغرافيا بثانوية سي الحواس، بسكرة، الجزائر.">
+  <title>الأستاذة بوغرارة حنان | أستاذة تاريخ وجغرافيا</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * { font-family: 'Cairo', sans-serif; }
+    body {
+      background-color: #fbf7f0;
+      background-image: radial-gradient(circle at 10% 20%, rgba(218, 165, 32, 0.03) 0%, transparent 30%);
+    }
+    
+    .floating-btn {
+      background: #0a2f44;
+      color: #e9c46a;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+      border: 1px solid #c2a144;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.75rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+    .floating-btn:hover { background: #1e4a6b; }
+    
+    .view-container { transition: opacity 0.2s; }
+    .hidden-view { display: none !important; }
+    
+    .subject-icons {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      font-size: 3.2rem;
+      line-height: 1;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+    }
+    .subject-icons span {
+      transition: transform 0.2s;
+      display: inline-block;
+    }
+    .subject-icons span:hover { transform: scale(1.05); }
+    
+    .lesson-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid #d4af37;
+      backdrop-filter: blur(4px);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .lesson-icon {
+      font-size: 2.5rem;
+      margin: 0.5rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+      display: inline-block;
+    }
+    .lesson-icon:hover { transform: scale(1.1); }
+    
+    .wiki-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid #d4af37;
+      backdrop-filter: blur(4px);
+    }
+    .wiki-result {
+      max-height: 400px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #b8860b #f0e6d2;
+    }
+    
+    .file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: rgba(255,255,240,0.6);
+      border: 1px solid #d4af3760;
+      border-radius: 0.75rem;
+      margin-bottom: 0.5rem;
+      transition: all 0.2s;
+    }
+    .file-item:hover {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: #b8860b;
+    }
+    .file-name {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .download-btn {
+      background: #0a2f44;
+      color: #e9c46a;
+      padding: 0.4rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+      border: 1px solid #c2a144;
+    }
+    .download-btn:hover {
+      background: #1e4a6b;
+      transform: scale(1.02);
+    }
+  </style>
+</head>
+
+<body class="antialiased text-gray-800 flex flex-col min-h-screen relative">
+
+  <!-- ========== المشهد الرئيسي ========== -->
+  <div id="mainView" class="view-container">
+    <main class="flex-grow max-w-4xl w-full mx-auto px-5 sm:px-6 py-8 md:py-12">
+      
+      <div class="flex flex-row-reverse items-start justify-between gap-4 mb-6 md:mb-8">
+        <div class="border-r-4 border-amber-500 pr-4 md:pr-6 flex-1">
+          <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-[#0a2f44] tracking-tight leading-tight">
+            الأستاذة بوغرارة حنان
+          </h1>
+          <div class="flex items-center gap-2 mt-2 text-amber-700">
+            <span class="w-8 h-0.5 bg-amber-400"></span>
+            <p class="text-xl md:text-2xl font-medium text-amber-800">أستاذة التاريخ والجغرافيا</p>
+          </div>
+        </div>
+        <div class="subject-icons pt-1">
+          <span title="جغرافيا العالم">🌍</span>
+          <span title="التاريخ والحضارة">🏛️</span>
+        </div>
+      </div>
+
+      <div class="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-lg border border-amber-200/60 mb-10"
+           style="box-shadow: 0 8px 20px -8px rgba(180, 130, 30, 0.15);">
+        <div class="flex items-center gap-3 mb-4 text-amber-600">
+          <span class="text-2xl">📜</span>
+          <span class="h-px flex-1 bg-gradient-to-l from-transparent via-amber-400 to-transparent"></span>
+        </div>
+        <p class="text-lg sm:text-xl leading-relaxed font-medium text-gray-800">
+          الأستاذة بوغرارة حنان هي أستاذة تاريخ وجغرافيا في مؤسسة ثانوية سي الحواس، بسكرة، الجزائر.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-4 text-sm text-gray-600 border-t border-amber-200/70 pt-5">
+          <div class="flex items-center gap-2"><span class="text-amber-700 text-lg">🏛️</span><span>ثانوية سي الحواس – بسكرة</span></div>
+          <div class="flex items-center gap-2"><span class="text-amber-700 text-lg">📖</span><span>تاريخ · جغرافيا · تراث</span></div>
+          <div class="flex items-center gap-2"><span class="text-amber-700 text-lg">🎓</span><span>تعليم ثانوي · خبرة أكاديمية</span></div>
+        </div>
+      </div>
+
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-[#0a2f44] inline-block border-b-2 border-amber-400 pb-1 mb-6">
+          تواصل مع الأستاذة
+        </h2>
+        <div class="bg-white/90 p-5 rounded-xl shadow-sm border border-amber-200 flex items-center gap-4 max-w-md">
+          <div class="bg-amber-100 text-amber-800 p-3 rounded-full text-2xl">✉️</div>
+          <div class="overflow-hidden">
+            <p class="text-xs text-amber-700 font-medium tracking-wide">البريد الإلكتروني</p>
+            <a href="mailto:bougherarahanane@gmail.com" class="text-base sm:text-lg font-semibold text-[#0a2f44] hover:text-amber-700 break-all transition">
+              bougherarahanane@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-8 pt-4 border-t border-amber-200/70 text-gray-500 text-sm">
+        <p class="italic">"نحو فهم أعمق للتاريخ والجغرافيا .. بروح جزائرية أصيلة"</p>
+        <p class="mt-2 text-xs text-amber-700/70">© 2025 الأستاذة بوغرارة حنان · جميع الحقوق محفوظة</p>
+      </div>
+    </main>
+  </div>
+
+  <!-- ========== مشهد ويكيبيديا ========== -->
+  <div id="wikiView" class="view-container hidden-view">
+    <div class="max-w-4xl mx-auto px-5 py-8">
+      <div class="mb-6">
+        <button id="backFromWikiBtn" class="flex items-center gap-2 text-[#0a2f44] hover:text-amber-700 transition font-semibold text-lg bg-white/60 backdrop-blur-sm px-5 py-2 rounded-full shadow-sm border border-amber-300">
+          <span>↩️</span> العودة للصفحة الرئيسية
+        </button>
+      </div>
+      
+      <div class="wiki-card p-6 md:p-8 rounded-2xl shadow-xl">
+        <div class="flex items-center gap-3 mb-6 border-b border-amber-300 pb-3">
+          <span class="text-3xl">📚</span>
+          <h2 class="text-3xl font-bold text-[#0a2f44]">موسوعة ويكيبيديا العربية</h2>
+        </div>
+        <p class="text-gray-600 mb-5">ابحث عن أي موضوع تاريخي أو جغرافي – ستظهر المعلومات مباشرة من ويكيبيديا العربية.</p>
+        
+        <div class="flex flex-col sm:flex-row gap-3 mb-5">
+          <input type="text" id="wikiSearchInput" placeholder="مثال: ثورة التحرير الجزائرية، جبال الأطلس..." 
+                 class="flex-1 px-5 py-3 rounded-xl border border-amber-300 bg-white/90 text-right focus:outline-none focus:ring-2 focus:ring-amber-400 text-base"
+                 dir="rtl">
+          <button id="wikiSearchBtn" class="bg-[#0a2f44] hover:bg-[#1e4a6b] text-amber-100 px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 whitespace-nowrap transition">
+            <span>🔎</span> بحث
+          </button>
+        </div>
+        
+        <div id="wikiLoading" class="hidden text-amber-700 text-sm my-3 flex items-center gap-2">
+          <span class="inline-block w-4 h-4 border-2 border-amber-500 border-t-transparent rounded-full animate-spin"></span>
+          جاري البحث في ويكيبيديا...
+        </div>
+        
+        <div id="wikiResult" class="wiki-result bg-amber-50/50 p-5 rounded-xl border border-amber-200 text-sm leading-relaxed hidden"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== مشهد الدروس (القائمة الرئيسية) ========== -->
+  <div id="lessonsView" class="view-container hidden-view">
+    <div class="max-w-5xl mx-auto px-5 py-8">
+      <div class="mb-6">
+        <button id="backFromLessonsBtn" class="flex items-center gap-2 text-[#0a2f44] hover:text-amber-700 transition font-semibold text-lg bg-white/60 backdrop-blur-sm px-5 py-2 rounded-full shadow-sm border border-amber-300">
+          <span>↩️</span> العودة للصفحة الرئيسية
+        </button>
+      </div>
+      
+      <div class="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl shadow-xl border border-amber-300">
+        <h2 class="text-3xl font-bold text-[#0a2f44] mb-2 text-center">📘 مكتبة الدروس</h2>
+        <p class="text-center text-gray-600 mb-8">اختر القسم ثم المادة للوصول إلى الدروس</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="lesson-card">
+            <h3 class="text-2xl font-bold text-[#0a2f44] mb-4">📖 أولى أدب</h3>
+            <div class="flex justify-center gap-6 mt-4">
+              <span class="lesson-icon" title="دروس التاريخ" data-section="1as" data-subject="history">📜</span>
+              <span class="lesson-icon" title="دروس الجغرافيا" data-section="1as" data-subject="geography">🌍</span>
+            </div>
+          </div>
+          
+          <div class="lesson-card">
+            <h3 class="text-2xl font-bold text-[#0a2f44] mb-4">🔬 أولى علوم</h3>
+            <div class="flex justify-center gap-6 mt-4">
+              <span class="lesson-icon" title="دروس التاريخ" data-section="1s" data-subject="history">📜</span>
+              <span class="lesson-icon" title="دروس الجغرافيا" data-section="1s" data-subject="geography">🌍</span>
+            </div>
+          </div>
+          
+          <div class="lesson-card">
+            <h3 class="text-2xl font-bold text-[#0a2f44] mb-4">🧪 ثانية علوم</h3>
+            <div class="flex justify-center gap-6 mt-4">
+              <span class="lesson-icon" title="دروس التاريخ" data-section="2s" data-subject="history">📜</span>
+              <span class="lesson-icon" title="دروس الجغرافيا" data-section="2s" data-subject="geography">🌍</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== مشهد الدرس الفردي ========== -->
+  <div id="singleLessonView" class="view-container hidden-view">
+    <div class="max-w-3xl mx-auto px-5 py-8">
+      <div class="mb-6 flex justify-between items-center">
+        <button id="backToLessonsListBtn" class="flex items-center gap-2 text-[#0a2f44] hover:text-amber-700 transition font-semibold text-lg bg-white/60 backdrop-blur-sm px-5 py-2 rounded-full shadow-sm border border-amber-300">
+          <span>↩️</span> العودة لقائمة الأقسام
+        </button>
+      </div>
+      
+      <div class="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-amber-300">
+        <div class="text-center mb-6">
+          <div id="lessonHeaderIcon" class="text-6xl mb-3">📚</div>
+          <h2 id="lessonTitle" class="text-3xl font-bold text-[#0a2f44]">عنوان الدرس</h2>
+        </div>
+        
+        <div id="lessonContentArea" class="py-4">
+          <div id="noLessonsMessage" class="text-gray-600 text-xl text-center py-8">
+            لا توجد دروس حالياً، يُرجى العودة لاحقاً.
+            <div class="text-amber-700 mt-4">⏳</div>
+          </div>
+          
+          <div id="lessonFilesContainer" class="hidden">
+            <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
+              <span>📂</span> ملفات الدروس المتوفرة
+            </h3>
+            <div id="filesList" class="space-y-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== الأزرار العائمة ========== -->
+  <div class="fixed bottom-6 left-6 z-50 flex flex-col sm:flex-row gap-3">
+    <div id="showWikiBtn" class="floating-btn shadow-2xl">
+      <span class="text-2xl">📖</span>
+      <span>ويكيبيديا العربية</span>
+    </div>
+    <div id="showLessonsBtn" class="floating-btn shadow-2xl">
+      <span class="text-2xl">📚</span>
+      <span>الدروس</span>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ---------- قاعدة بيانات الملفات ----------
+      const filesDatabase = [
+        { 
+          section: "1as", 
+          subject: "history", 
+          name: "مضمون النهضة.docx", 
+          url: "https://docs.google.com/document/d/13M8xR6vXZxBzVti7sqVjLr8ajj3nY8XR/edit?usp=sharing&ouid=114990876756822090590&rtpof=true&sd=true" 
+        }
+      ];
+
+      // ---------- المشاهد ----------
+      const mainView = document.getElementById('mainView');
+      const wikiView = document.getElementById('wikiView');
+      const lessonsView = document.getElementById('lessonsView');
+      const singleLessonView = document.getElementById('singleLessonView');
+      
+      const showWikiBtn = document.getElementById('showWikiBtn');
+      const showLessonsBtn = document.getElementById('showLessonsBtn');
+      const backFromWikiBtn = document.getElementById('backFromWikiBtn');
+      const backFromLessonsBtn = document.getElementById('backFromLessonsBtn');
+      const backToLessonsListBtn = document.getElementById('backToLessonsListBtn');
+
+      const lessonTitle = document.getElementById('lessonTitle');
+      const lessonHeaderIcon = document.getElementById('lessonHeaderIcon');
+      const noLessonsMessage = document.getElementById('noLessonsMessage');
+      const lessonFilesContainer = document.getElementById('lessonFilesContainer');
+      const filesList = document.getElementById('filesList');
+
+      const sectionTitles = {
+        "1as_history": { title: "دروس التاريخ - أولى أدب", icon: "📜" },
+        "1as_geography": { title: "دروس الجغرافيا - أولى أدب", icon: "🌍" },
+        "1s_history": { title: "دروس التاريخ - أولى علوم", icon: "📜" },
+        "1s_geography": { title: "دروس الجغرافيا - أولى علوم", icon: "🌍" },
+        "2s_history": { title: "دروس التاريخ - ثانية علوم", icon: "📜" },
+        "2s_geography": { title: "دروس الجغرافيا - ثانية علوم", icon: "🌍" }
+      };
+
+      function hideAllViews() {
+        mainView.classList.add('hidden-view');
+        wikiView.classList.add('hidden-view');
+        lessonsView.classList.add('hidden-view');
+        singleLessonView.classList.add('hidden-view');
+      }
+
+      function showMain() {
+        hideAllViews();
+        mainView.classList.remove('hidden-view');
+      }
+
+      function showWiki() {
+        hideAllViews();
+        wikiView.classList.remove('hidden-view');
+        setTimeout(() => document.getElementById('wikiSearchInput')?.focus(), 100);
+      }
+
+      function showLessons() {
+        hideAllViews();
+        lessonsView.classList.remove('hidden-view');
+      }
+
+      function showSingleLesson(section, subject) {
+        const key = `${section}_${subject}`;
+        const data = sectionTitles[key];
+        if (!data) return;
+
+        hideAllViews();
+        
+        lessonTitle.textContent = data.title;
+        lessonHeaderIcon.textContent = data.icon;
+        
+        const relevantFiles = filesDatabase.filter(f => f.section === section && f.subject === subject);
+        
+        if (relevantFiles.length === 0) {
+          noLessonsMessage.style.display = 'block';
+          lessonFilesContainer.classList.add('hidden');
+        } else {
+          noLessonsMessage.style.display = 'none';
+          lessonFilesContainer.classList.remove('hidden');
+          
+          filesList.innerHTML = '';
+          relevantFiles.forEach(file => {
+            const fileDiv = document.createElement('div');
+            fileDiv.className = 'file-item';
+            fileDiv.innerHTML = `
+              <div class="file-name">
+                <span class="text-2xl">📄</span>
+                <span class="font-medium">${file.name}</span>
+              </div>
+              <a href="${file.url}" target="_blank" class="download-btn">
+                <span>📥</span>
+                <span>تحميل</span>
+              </a>
+            `;
+            filesList.appendChild(fileDiv);
+          });
+        }
+        
+        singleLessonView.classList.remove('hidden-view');
+      }
+
+      showWikiBtn.addEventListener('click', showWiki);
+      showLessonsBtn.addEventListener('click', showLessons);
+      backFromWikiBtn.addEventListener('click', showMain);
+      backFromLessonsBtn.addEventListener('click', showMain);
+      backToLessonsListBtn.addEventListener('click', showLessons);
+
+      document.querySelectorAll('.lesson-icon').forEach(icon => {
+        icon.addEventListener('click', (e) => {
+          const section = icon.dataset.section;
+          const subject = icon.dataset.subject;
+          if (section && subject) {
+            showSingleLesson(section, subject);
+          }
+        });
+      });
+
+      // ---------- ويكيبيديا ----------
+      const input = document.getElementById('wikiSearchInput');
+      const searchBtn = document.getElementById('wikiSearchBtn');
+      const loadingDiv = document.getElementById('wikiLoading');
+      const resultDiv = document.getElementById('wikiResult');
+
+      function extractSearchQuery(question) {
+        let q = question.trim();
+        q = q.replace(/^(ما|من|متى|أين|كيف|لماذا|هل|ماذا)\s+/i, '');
+        q = q.replace(/[؟?]/g, '');
+        return q.trim() || question.trim();
+      }
+
+      async function performSearch() {
+        const rawQuestion = input.value.trim();
+        if (!rawQuestion) {
+          resultDiv.innerHTML = '<p class="text-red-600">⚠️ الرجاء إدخال سؤال أو كلمة بحث.</p>';
+          resultDiv.classList.remove('hidden');
+          return;
+        }
+
+        loadingDiv.classList.remove('hidden');
+        resultDiv.classList.add('hidden');
+        resultDiv.innerHTML = '';
+
+        try {
+          const searchQuery = extractSearchQuery(rawQuestion);
+          
+          const searchUrl = `https://ar.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&format=json&origin=*`;
+          const searchResp = await fetch(searchUrl);
+          const searchData = await searchResp.json();
+
+          if (!searchData.query?.search?.length) {
+            throw new Error('لا توجد نتائج في ويكيبيديا العربية.');
+          }
+
+          const firstResult = searchData.query.search[0];
+          const pageId = firstResult.pageid;
+          const title = firstResult.title;
+
+          const contentUrl = `https://ar.wikipedia.org/w/api.php?action=query&prop=extracts&exintro&explaintext&pageids=${pageId}&format=json&origin=*`;
+          const contentResp = await fetch(contentUrl);
+          const contentData = await contentResp.json();
+          const extract = contentData.query.pages[pageId].extract;
+
+          if (!extract) {
+            throw new Error('المقالة موجودة لكن المحتوى غير متوفر.');
+          }
+
+          let summary = extract;
+          const sentences = extract.split(/[.۔!؟\n]+/).filter(s => s.trim().length > 15);
+          if (sentences.length > 0) {
+            summary = sentences.slice(0, 5).join(' . ') + ' .';
+          } else {
+            summary = extract.substring(0, 600);
+            if (extract.length > 600) summary += '...';
+          }
+
+          const wikiLink = `https://ar.wikipedia.org/wiki/${encodeURIComponent(title)}`;
+          resultDiv.innerHTML = `
+            <div class="mb-3 flex items-start gap-2">
+              <span class="text-amber-700 text-xl">📖</span>
+              <h3 class="text-lg font-bold text-[#0a2f44]">${title}</h3>
+            </div>
+            <div class="text-gray-800 text-justify leading-relaxed mb-4">
+              ${summary}
+            </div>
+            <div class="text-xs border-t border-amber-200 pt-3 mt-2 flex justify-between items-center">
+              <span>🔗 <a href="${wikiLink}" target="_blank" rel="noopener" class="text-amber-700 hover:underline">اقرأ المقال كاملاً على ويكيبيديا</a></span>
+              <span class="text-gray-500">موسوعة ويكيبيديا العربية</span>
+            </div>
+          `;
+          resultDiv.classList.remove('hidden');
+          
+        } catch (error) {
+          console.error(error);
+          resultDiv.innerHTML = `<p class="text-red-600">❌ ${error.message || 'حدث خطأ أثناء البحث. تأكد من اتصالك بالإنترنت.'}</p>`;
+          resultDiv.classList.remove('hidden');
+        } finally {
+          loadingDiv.classList.add('hidden');
+        }
+      }
+
+      if (searchBtn) {
+        searchBtn.addEventListener('click', performSearch);
+        input.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            performSearch();
+          }
+        });
+        resultDiv.classList.add('hidden');
+      }
+    })();
+  </script>
+</body>
+</html>
