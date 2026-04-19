@@ -34,10 +34,8 @@
     }
     .floating-btn:hover { background: #1e4a6b; }
     
-    /* جميع المشاهد مخفية افتراضياً */
-    .view-container { display: none; }
-    /* المشهد النشط فقط هو الذي يظهر */
-    .view-container.active-view { display: block; }
+    .view-container { transition: opacity 0.2s; }
+    .hidden-view { display: none !important; }
     
     .subject-icons {
       display: flex;
@@ -124,7 +122,7 @@
 <body class="antialiased text-gray-800 flex flex-col min-h-screen relative">
 
   <!-- ========== المشهد الرئيسي ========== -->
-  <div id="mainView" class="view-container active-view">
+  <div id="mainView" class="view-container">
     <main class="flex-grow max-w-4xl w-full mx-auto px-5 sm:px-6 py-8 md:py-12">
       
       <div class="flex flex-row-reverse items-start justify-between gap-4 mb-6 md:mb-8">
@@ -182,7 +180,7 @@
   </div>
 
   <!-- ========== مشهد ويكيبيديا ========== -->
-  <div id="wikiView" class="view-container">
+  <div id="wikiView" class="view-container hidden-view">
     <div class="max-w-4xl mx-auto px-5 py-8">
       <div class="mb-6">
         <button id="backFromWikiBtn" class="flex items-center gap-2 text-[#0a2f44] hover:text-amber-700 transition font-semibold text-lg bg-white/60 backdrop-blur-sm px-5 py-2 rounded-full shadow-sm border border-amber-300">
@@ -217,7 +215,7 @@
   </div>
 
   <!-- ========== مشهد الدروس (القائمة الرئيسية) ========== -->
-  <div id="lessonsView" class="view-container">
+  <div id="lessonsView" class="view-container hidden-view">
     <div class="max-w-5xl mx-auto px-5 py-8">
       <div class="mb-6">
         <button id="backFromLessonsBtn" class="flex items-center gap-2 text-[#0a2f44] hover:text-amber-700 transition font-semibold text-lg bg-white/60 backdrop-blur-sm px-5 py-2 rounded-full shadow-sm border border-amber-300">
@@ -259,7 +257,7 @@
   </div>
 
   <!-- ========== مشهد الدرس الفردي ========== -->
-  <div id="singleLessonView" class="view-container">
+  <div id="singleLessonView" class="view-container hidden-view">
     <div class="max-w-3xl mx-auto px-5 py-8">
       <div class="mb-6 flex justify-between items-center">
         <button id="backToLessonsListBtn" class="flex items-center gap-2 text-[#0a2f44] hover:text-amber-700 transition font-semibold text-lg bg-white/60 backdrop-blur-sm px-5 py-2 rounded-full shadow-sm border border-amber-300">
@@ -291,7 +289,7 @@
   </div>
 
   <!-- ========== الأزرار العائمة ========== -->
-  <div id="floatingButtons" class="fixed bottom-6 left-6 z-50 flex flex-col sm:flex-row gap-3">
+  <div class="fixed bottom-6 left-6 z-50 flex flex-col sm:flex-row gap-3">
     <div id="showWikiBtn" class="floating-btn shadow-2xl">
       <span class="text-2xl">📖</span>
       <span>ويكيبيديا العربية</span>
@@ -316,12 +314,11 @@
         }
       ];
 
-      // ---------- المشاهد والأزرار ----------
+      // ---------- المشاهد ----------
       const mainView = document.getElementById('mainView');
       const wikiView = document.getElementById('wikiView');
       const lessonsView = document.getElementById('lessonsView');
       const singleLessonView = document.getElementById('singleLessonView');
-      const floatingButtons = document.getElementById('floatingButtons');
       
       const showWikiBtn = document.getElementById('showWikiBtn');
       const showLessonsBtn = document.getElementById('showLessonsBtn');
@@ -344,28 +341,27 @@
         "2s_geography": { title: "دروس الجغرافيا - ثانية علوم", icon: "🌍" }
       };
 
-      // دالة مساعدة لإخفاء جميع المشاهد
-      function deactivateAllViews() {
-        document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active-view'));
+      function hideAllViews() {
+        mainView.classList.add('hidden-view');
+        wikiView.classList.add('hidden-view');
+        lessonsView.classList.add('hidden-view');
+        singleLessonView.classList.add('hidden-view');
       }
 
       function showMain() {
-        deactivateAllViews();
-        mainView.classList.add('active-view');
-        floatingButtons.style.display = 'flex'; // إظهار الأزرار
+        hideAllViews();
+        mainView.classList.remove('hidden-view');
       }
 
       function showWiki() {
-        deactivateAllViews();
-        wikiView.classList.add('active-view');
-        floatingButtons.style.display = 'none'; // إخفاء الأزرار
+        hideAllViews();
+        wikiView.classList.remove('hidden-view');
         setTimeout(() => document.getElementById('wikiSearchInput')?.focus(), 100);
       }
 
       function showLessons() {
-        deactivateAllViews();
-        lessonsView.classList.add('active-view');
-        floatingButtons.style.display = 'none'; // إخفاء الأزرار
+        hideAllViews();
+        lessonsView.classList.remove('hidden-view');
       }
 
       function showSingleLesson(section, subject) {
@@ -373,8 +369,7 @@
         const data = sectionTitles[key];
         if (!data) return;
 
-        deactivateAllViews();
-        floatingButtons.style.display = 'none'; // إخفاء الأزرار
+        hideAllViews();
         
         lessonTitle.textContent = data.title;
         lessonHeaderIcon.textContent = data.icon;
@@ -406,20 +401,14 @@
           });
         }
         
-        singleLessonView.classList.add('active-view');
+        singleLessonView.classList.remove('hidden-view');
       }
 
-      // ربط الأحداث
       showWikiBtn.addEventListener('click', showWiki);
       showLessonsBtn.addEventListener('click', showLessons);
       backFromWikiBtn.addEventListener('click', showMain);
       backFromLessonsBtn.addEventListener('click', showMain);
-      
-      backToLessonsListBtn.addEventListener('click', () => {
-        deactivateAllViews();
-        lessonsView.classList.add('active-view');
-        floatingButtons.style.display = 'none';
-      });
+      backToLessonsListBtn.addEventListener('click', showLessons);
 
       document.querySelectorAll('.lesson-icon').forEach(icon => {
         icon.addEventListener('click', (e) => {
@@ -430,9 +419,6 @@
           }
         });
       });
-
-      // التأكد من أن الأزرار العائمة تظهر بشكل صحيح افتراضياً
-      floatingButtons.style.display = 'flex';
 
       // ---------- ويكيبيديا ----------
       const input = document.getElementById('wikiSearchInput');
@@ -480,4 +466,54 @@
           const extract = contentData.query.pages[pageId].extract;
 
           if (!extract) {
-            throw new Error('المقالة موجودة لكن الم
+            throw new Error('المقالة موجودة لكن المحتوى غير متوفر.');
+          }
+
+          let summary = extract;
+          const sentences = extract.split(/[.۔!؟\n]+/).filter(s => s.trim().length > 15);
+          if (sentences.length > 0) {
+            summary = sentences.slice(0, 5).join(' . ') + ' .';
+          } else {
+            summary = extract.substring(0, 600);
+            if (extract.length > 600) summary += '...';
+          }
+
+          const wikiLink = `https://ar.wikipedia.org/wiki/${encodeURIComponent(title)}`;
+          resultDiv.innerHTML = `
+            <div class="mb-3 flex items-start gap-2">
+              <span class="text-amber-700 text-xl">📖</span>
+              <h3 class="text-lg font-bold text-[#0a2f44]">${title}</h3>
+            </div>
+            <div class="text-gray-800 text-justify leading-relaxed mb-4">
+              ${summary}
+            </div>
+            <div class="text-xs border-t border-amber-200 pt-3 mt-2 flex justify-between items-center">
+              <span>🔗 <a href="${wikiLink}" target="_blank" rel="noopener" class="text-amber-700 hover:underline">اقرأ المقال كاملاً على ويكيبيديا</a></span>
+              <span class="text-gray-500">موسوعة ويكيبيديا العربية</span>
+            </div>
+          `;
+          resultDiv.classList.remove('hidden');
+          
+        } catch (error) {
+          console.error(error);
+          resultDiv.innerHTML = `<p class="text-red-600">❌ ${error.message || 'حدث خطأ أثناء البحث. تأكد من اتصالك بالإنترنت.'}</p>`;
+          resultDiv.classList.remove('hidden');
+        } finally {
+          loadingDiv.classList.add('hidden');
+        }
+      }
+
+      if (searchBtn) {
+        searchBtn.addEventListener('click', performSearch);
+        input.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            performSearch();
+          }
+        });
+        resultDiv.classList.add('hidden');
+      }
+    })();
+  </script>
+</body>
+</html>
