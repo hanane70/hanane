@@ -289,7 +289,7 @@
   </div>
 
   <!-- ========== الأزرار العائمة ========== -->
-  <div class="fixed bottom-6 left-6 z-50 flex flex-col sm:flex-row gap-3">
+  <div id="floatingButtons" class="fixed bottom-6 left-6 z-50 flex flex-col sm:flex-row gap-3">
     <div id="showWikiBtn" class="floating-btn shadow-2xl">
       <span class="text-2xl">📖</span>
       <span>ويكيبيديا العربية</span>
@@ -314,11 +314,12 @@
         }
       ];
 
-      // ---------- المشاهد ----------
+      // ---------- المشاهد والأزرار ----------
       const mainView = document.getElementById('mainView');
       const wikiView = document.getElementById('wikiView');
       const lessonsView = document.getElementById('lessonsView');
       const singleLessonView = document.getElementById('singleLessonView');
+      const floatingButtons = document.getElementById('floatingButtons');
       
       const showWikiBtn = document.getElementById('showWikiBtn');
       const showLessonsBtn = document.getElementById('showLessonsBtn');
@@ -351,17 +352,20 @@
       function showMain() {
         hideAllViews();
         mainView.classList.remove('hidden-view');
+        floatingButtons.classList.remove('hidden'); // إظهار الأزرار
       }
 
       function showWiki() {
         hideAllViews();
         wikiView.classList.remove('hidden-view');
+        floatingButtons.classList.add('hidden'); // إخفاء الأزرار
         setTimeout(() => document.getElementById('wikiSearchInput')?.focus(), 100);
       }
 
       function showLessons() {
         hideAllViews();
         lessonsView.classList.remove('hidden-view');
+        floatingButtons.classList.add('hidden'); // إخفاء الأزرار
       }
 
       function showSingleLesson(section, subject) {
@@ -370,6 +374,7 @@
         if (!data) return;
 
         hideAllViews();
+        floatingButtons.classList.add('hidden'); // إخفاء الأزرار
         
         lessonTitle.textContent = data.title;
         lessonHeaderIcon.textContent = data.icon;
@@ -408,7 +413,12 @@
       showLessonsBtn.addEventListener('click', showLessons);
       backFromWikiBtn.addEventListener('click', showMain);
       backFromLessonsBtn.addEventListener('click', showMain);
-      backToLessonsListBtn.addEventListener('click', showLessons);
+      backToLessonsListBtn.addEventListener('click', () => {
+        // العودة إلى قائمة الدروس (تظل الأزرار مخفية)
+        hideAllViews();
+        lessonsView.classList.remove('hidden-view');
+        floatingButtons.classList.add('hidden');
+      });
 
       document.querySelectorAll('.lesson-icon').forEach(icon => {
         icon.addEventListener('click', (e) => {
@@ -470,50 +480,4 @@
           }
 
           let summary = extract;
-          const sentences = extract.split(/[.۔!؟\n]+/).filter(s => s.trim().length > 15);
-          if (sentences.length > 0) {
-            summary = sentences.slice(0, 5).join(' . ') + ' .';
-          } else {
-            summary = extract.substring(0, 600);
-            if (extract.length > 600) summary += '...';
-          }
-
-          const wikiLink = `https://ar.wikipedia.org/wiki/${encodeURIComponent(title)}`;
-          resultDiv.innerHTML = `
-            <div class="mb-3 flex items-start gap-2">
-              <span class="text-amber-700 text-xl">📖</span>
-              <h3 class="text-lg font-bold text-[#0a2f44]">${title}</h3>
-            </div>
-            <div class="text-gray-800 text-justify leading-relaxed mb-4">
-              ${summary}
-            </div>
-            <div class="text-xs border-t border-amber-200 pt-3 mt-2 flex justify-between items-center">
-              <span>🔗 <a href="${wikiLink}" target="_blank" rel="noopener" class="text-amber-700 hover:underline">اقرأ المقال كاملاً على ويكيبيديا</a></span>
-              <span class="text-gray-500">موسوعة ويكيبيديا العربية</span>
-            </div>
-          `;
-          resultDiv.classList.remove('hidden');
-          
-        } catch (error) {
-          console.error(error);
-          resultDiv.innerHTML = `<p class="text-red-600">❌ ${error.message || 'حدث خطأ أثناء البحث. تأكد من اتصالك بالإنترنت.'}</p>`;
-          resultDiv.classList.remove('hidden');
-        } finally {
-          loadingDiv.classList.add('hidden');
-        }
-      }
-
-      if (searchBtn) {
-        searchBtn.addEventListener('click', performSearch);
-        input.addEventListener('keypress', (e) => {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            performSearch();
-          }
-        });
-        resultDiv.classList.add('hidden');
-      }
-    })();
-  </script>
-</body>
-</html>
+          const sentence
